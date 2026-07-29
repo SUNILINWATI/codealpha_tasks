@@ -1,0 +1,11 @@
+Flask
+Flask-MySQLdb
+Flask-Session
+pandas
+numpy
+scikit-learn
+joblib
+matplotlib
+plotly
+reportlab
+openpyxl

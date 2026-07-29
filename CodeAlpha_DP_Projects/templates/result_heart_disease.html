@@ -1,0 +1,508 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-9">
+      <div class="card shadow-lg border-0">
+        <div class="card-header bg-danger text-white text-center">
+          <h2>❤️ Heart Disease Prediction Result</h2>
+        </div>
+
+        <div class="card-body">
+          {% if result.prediction == 1 %}
+
+          <div class="alert alert-danger text-center shadow-sm">
+            <h2>⚠ Heart Disease Detected</h2>
+
+            <p class="mb-0">
+              Please consult a Cardiologist for further evaluation.
+            </p>
+          </div>
+
+          {% else %}
+
+          <div class="alert alert-success text-center shadow-sm">
+            <h2>❤️ Healthy Heart</h2>
+
+            <p class="mb-0">
+              No significant signs of heart disease were detected.
+            </p>
+          </div>
+
+          {% endif %}
+
+          <div class="card mt-4 shadow-sm">
+            <div class="card-header bg-dark text-white">
+              👤 Patient Information
+            </div>
+
+            <div class="card-body">
+              <table class="table table-bordered">
+                <tr>
+                  <th width="35%">Patient Name</th>
+
+                  <td>{{ patient_name }}</td>
+                </tr>
+
+                <tr>
+                  <th>Prediction Status</th>
+
+                  <td>
+                    {% if result.prediction == 1 %}
+
+                    <span class="badge bg-danger fs-6">
+                      Heart Disease Detected
+                    </span>
+
+                    {% else %}
+
+                    <span class="badge bg-success fs-6"> Healthy </span>
+
+                    {% endif %}
+                  </td>
+                </tr>
+
+                <tr>
+                  <th>Model Confidence</th>
+
+                  <td>
+                    <strong>{{ result.probability }}%</strong>
+                  </td>
+                </tr>
+
+                <tr>
+                  <th>Risk Level</th>
+
+                  <td>
+                    {% if result.risk=="HIGH" %}
+
+                    <span class="badge bg-danger fs-6"> HIGH </span>
+
+                    {% elif result.risk=="MEDIUM" %}
+
+                    <span class="badge bg-warning text-dark fs-6">
+                      MEDIUM
+                    </span>
+
+                    {% else %}
+
+                    <span class="badge bg-success fs-6"> LOW </span>
+
+                    {% endif %}
+                  </td>
+                </tr>
+
+                <tr>
+                  <th>Report ID</th>
+                  <td>HD-{{ prediction_id }}</td>
+                </tr>
+
+                <tr>
+                  <th>Prediction Date</th>
+
+                  <td>{{ date }}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+          <h4 class="mt-4">📊 AI Confidence Meter</h4>
+
+          <div class="progress shadow" style="height: 35px">
+            {% if result.risk=="HIGH" %}
+
+            <div
+              class="progress-bar bg-danger progress-bar-striped progress-bar-animated"
+              style="width:{{ result.probability }}%;"
+            >
+              {{ result.probability }}%
+            </div>
+
+            {% elif result.risk=="MEDIUM" %}
+
+            <div
+              class="progress-bar bg-warning text-dark progress-bar-striped progress-bar-animated"
+              style="width:{{ result.probability }}%;"
+            >
+              {{ result.probability }}%
+            </div>
+
+            {% else %}
+
+            <div
+              class="progress-bar bg-success progress-bar-striped progress-bar-animated"
+              style="width:{{ result.probability }}%;"
+            >
+              {{ result.probability }}%
+            </div>
+
+            {% endif %}
+          </div>
+
+          <hr class="my-4" />
+
+          <!-- AI Interpretation -->
+
+          <div class="card shadow-sm mb-4">
+            <div class="card-header bg-info text-white">
+              📖 AI Interpretation
+            </div>
+
+            <div class="alert alert-info mt-4">
+              <h4>👨‍⚕ AI Assisted Screening</h4>
+
+              <p class="mb-0">
+                This prediction is generated using Artificial Intelligence and
+                should be considered only as a screening result. Please consult
+                a qualified Cardiologist before making any medical decision.
+              </p>
+            </div>
+
+            <div class="card-body">
+              {% if result.prediction == 1 %}
+
+              <p>
+                The AI model predicts that the patient is likely to have
+                <strong>Heart Disease</strong> with a confidence of
+
+                <strong>{{ result.probability }}%</strong>.
+              </p>
+
+              <p>
+                This prediction indicates that further clinical evaluation and
+                diagnostic tests are recommended.
+              </p>
+
+              {% else %}
+
+              <p>
+                The AI model predicts that the patient has a
+                <strong>Healthy Heart</strong> with a confidence of
+
+                <strong>{{ result.probability }}%</strong>.
+              </p>
+
+              <p>
+                No significant signs of heart disease were detected based on the
+                provided information.
+              </p>
+
+              {% endif %}
+            </div>
+          </div>
+
+          <!-- AI Confidence Explanation -->
+
+          <div class="card shadow-sm mb-4">
+            <div class="card-header bg-secondary text-white">
+              🤖 What is Model Confidence?
+            </div>
+
+            <div class="card-body">
+              <p>
+                Model Confidence represents how certain the AI model is about
+                its prediction.
+              </p>
+
+              <ul>
+                <li>Higher confidence means the AI is more certain.</li>
+
+                <li>
+                  Lower confidence means the prediction should be interpreted
+                  carefully.
+                </li>
+
+                <li>
+                  This value does <strong>not</strong> indicate disease
+                  severity.
+                </li>
+              </ul>
+
+              <div class="alert alert-warning mb-0">
+                <strong>Medical Disclaimer:</strong>
+
+                This AI prediction is intended only for educational and
+                screening purposes. Please consult a qualified healthcare
+                professional before making any medical decisions.
+              </div>
+            </div>
+          </div>
+
+          <!-- Recommendations -->
+
+          {% if result.risk=="HIGH" %}
+
+          <div class="card border-danger shadow-sm mb-4">
+            <div class="card-header bg-danger text-white">
+              💡 Medical Recommendations
+            </div>
+
+            <div class="card-body">
+              <ul>
+                <li>Consult a Cardiologist immediately.</li>
+
+                <li>Perform ECG / Echo tests.</li>
+
+                <li>Monitor Blood Pressure daily.</li>
+
+                <li>Reduce cholesterol-rich foods.</li>
+
+                <li>Avoid smoking and alcohol.</li>
+
+                <li>Take medicines only as prescribed.</li>
+
+                <li>Schedule regular follow-up appointments.</li>
+              </ul>
+            </div>
+          </div>
+
+          {% elif result.risk=="MEDIUM" %}
+
+          <div class="card border-warning shadow-sm mb-4">
+            <div class="card-header bg-warning">💡 Medical Recommendations</div>
+
+            <div class="card-body">
+              <ul>
+                <li>Exercise at least 30 minutes daily.</li>
+
+                <li>Maintain a healthy BMI.</li>
+
+                <li>Reduce oily and processed foods.</li>
+
+                <li>Monitor Blood Pressure regularly.</li>
+
+                <li>Get routine heart check-ups.</li>
+
+                <li>Reduce stress through yoga or meditation.</li>
+              </ul>
+            </div>
+          </div>
+
+          {% else %}
+
+          <div class="card border-success shadow-sm mb-4">
+            <div class="card-header bg-success text-white">
+              💡 Healthy Lifestyle Recommendations
+            </div>
+
+            <div class="card-body">
+              <ul>
+                <li>Continue regular exercise.</li>
+
+                <li>Maintain a balanced diet.</li>
+
+                <li>Drink sufficient water daily.</li>
+
+                <li>Avoid smoking and excessive alcohol.</li>
+
+                <li>Sleep 7–8 hours every day.</li>
+
+                <li>Schedule annual heart check-ups.</li>
+              </ul>
+            </div>
+          </div>
+
+          {% endif %}
+
+          <!-- Risk Guide -->
+          <div class="card mt-4 shadow-sm">
+            <div class="card-header bg-primary text-white">
+              📊 Risk Level Guide
+            </div>
+
+            <div class="card-body">
+              <table class="table table-bordered text-center align-middle">
+                <thead class="table-light">
+                  <tr>
+                    <th>Risk Level</th>
+                    <th>Meaning</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr>
+                    <td>
+                      <span class="badge bg-success fs-6">LOW</span>
+                    </td>
+                    <td>
+                      Healthy Prediction.<br />
+                      No significant signs of heart disease detected.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <span class="badge bg-warning text-dark fs-6"
+                        >MEDIUM</span
+                      >
+                    </td>
+                    <td>
+                      Heart Disease detected with <b>Moderate Confidence</b>.<br />
+                      Medical consultation and lifestyle modification recommended.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <span class="badge bg-danger fs-6">HIGH</span>
+                    </td>
+                    <td>
+                      Heart Disease detected with <b>High Confidence</b>.<br />
+                      Immediate consultation with a Cardiologist is recommended.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <hr class="my-4" />
+
+          <!-- Report Summary -->
+
+          <div class="card shadow-lg border-0 mb-4">
+            <div class="card-header bg-dark text-white">
+              📋 AI Prediction Report Summary
+            </div>
+
+            <div class="card-body">
+              <table class="table table-striped">
+                <tr>
+                  <th width="35%">Patient Name</th>
+
+                  <td>{{ patient_name }}</td>
+                </tr>
+
+                <tr>
+                  <th>Disease</th>
+
+                  <td>Heart Disease</td>
+                </tr>
+
+                <tr>
+                  <th>Prediction</th>
+
+                  <td>{{ result.status }}</td>
+                </tr>
+
+                <tr>
+                  <th>Model Confidence</th>
+
+                  <td>{{ result.probability }}%</td>
+                </tr>
+
+                <tr>
+                  <th>Risk Level</th>
+
+                  <td>
+                    {% if result.risk=="HIGH" %}
+
+                    <span class="badge bg-danger fs-6"> HIGH </span>
+
+                    {% elif result.risk=="MEDIUM" %}
+
+                    <span class="badge bg-warning text-dark fs-6">
+                      MEDIUM
+                    </span>
+
+                    {% else %}
+
+                    <span class="badge bg-success fs-6"> LOW </span>
+
+                    {% endif %}
+                  </td>
+                </tr>
+
+                <tr>
+                  <th>Prediction Date</th>
+
+                  <td>{{ date }}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+          <!-- PDF Card -->
+
+          <div class="alert alert-primary text-center shadow-sm">
+            <h5>📄 Download AI Medical Report</h5>
+
+            <p class="mb-3">
+              Download a professional PDF report containing the prediction
+              result, confidence score, recommendations and report summary.
+            </p>
+
+            <a
+              href="{{ url_for('report_bp.download_report',
+                         prediction_id=prediction_id) }}"
+              class="btn btn-success btn-lg"
+            >
+              📄 Download Report
+            </a>
+          </div>
+
+          <!-- Buttons -->
+
+          <div class="text-center mt-4">
+            <a href="/heart" class="btn btn-danger btn-lg">
+              ❤️ Predict Again
+            </a>
+
+            <a href="/dashboard" class="btn btn-primary btn-lg">
+              🏠 Dashboard
+            </a>
+          </div>
+
+          <!-- Footer -->
+
+          <div class="card mt-5 shadow">
+            <div class="card-header bg-dark text-white text-center">
+              🏥 Medical Disclaimer
+            </div>
+
+            <div class="card-body">
+              <div class="alert alert-warning">
+                <strong>Important Notice</strong>
+
+                <hr />
+
+                This AI prediction system is intended only for educational and
+                preliminary health screening purposes.
+
+                <br /><br />
+
+                The prediction result is generated using Machine Learning models
+                trained on healthcare datasets.
+
+                <br /><br />
+
+                <b>
+                  This report should NOT be considered a final medical
+                  diagnosis.
+                </b>
+
+                Always consult a qualified healthcare professional before making
+                any medical decisions.
+              </div>
+
+              <hr />
+
+              <div class="text-center">
+                <h5 class="text-primary">🩺 AI Disease Prediction System</h5>
+
+                <p class="text-muted mb-1">
+                  Developed using Flask • Python • Machine Learning • Bootstrap
+                </p>
+
+                <small class="text-secondary">
+                  © 2026 AI Disease Prediction System. All Rights Reserved.
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

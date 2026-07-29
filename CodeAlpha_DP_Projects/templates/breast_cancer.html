@@ -1,0 +1,220 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="container py-5">
+  <div class="card shadow">
+    <div class="card-header bg-info text-white text-center">
+      <h2>🎗 Breast Cancer Prediction</h2>
+      <p class="mb-0">Enter the patient's details below</p>
+    </div>
+
+    <div class="card-body">
+      {% if error %}
+      <div class="alert alert-danger">{{ error }}</div>
+      {% endif %}
+
+      <form action="{{ url_for('breast_bp.breast_predict') }}" method="POST">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Patient Name</label>
+            <input
+              type="text"
+              name="patient_name"
+              class="form-control"
+              placeholder="Enter Patient Name"
+              required
+            />
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Patient Age</label>
+            <input
+              type="number"
+              class="form-control"
+              name="patient_age"
+              min="1"
+              max="120"
+              required
+            />
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Radius Mean</label>
+            <input
+              type="number"
+              step="0.0001"
+              name="radius_mean"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Texture Mean</label>
+            <input
+              type="number"
+              step="0.0001"
+              name="texture_mean"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Perimeter Mean</label>
+            <input
+              type="number"
+              step="0.0001"
+              name="perimeter_mean"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Area Mean</label>
+            <input
+              type="number"
+              step="0.0001"
+              name="area_mean"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Smoothness Mean</label>
+            <input
+              type="number"
+              step="0.0001"
+              name="smoothness_mean"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Compactness Mean</label>
+            <input
+              type="number"
+              step="0.0001"
+              name="compactness_mean"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Concavity Mean</label>
+            <input
+              type="number"
+              step="0.0001"
+              name="concavity_mean"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Concave Points Mean</label>
+            <input
+              type="number"
+              step="0.0001"
+              name="concave_points_mean"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Symmetry Mean</label>
+            <input
+              type="number"
+              step="0.0001"
+              name="symmetry_mean"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Radius Worst</label>
+            <input
+              type="number"
+              step="0.0001"
+              name="radius_worst"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Texture Worst</label>
+            <input
+              type="number"
+              step="0.0001"
+              name="texture_worst"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Perimeter Worst</label>
+            <input
+              type="number"
+              step="0.0001"
+              name="perimeter_worst"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Area Worst</label>
+            <input
+              type="number"
+              step="0.0001"
+              name="area_worst"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Concave Points Worst</label>
+            <input
+              type="number"
+              step="0.0001"
+              name="concave_points_worst"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Fractal Dimension Worst</label>
+            <input
+              type="number"
+              step="0.0001"
+              name="fractal_dimension_worst"
+              class="form-control"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="text-center mt-4">
+          <button type="submit" class="btn btn-info px-4">
+            Predict Breast Cancer
+          </button>
+
+          <button type="reset" class="btn btn-secondary px-4 ms-2">
+            Reset
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

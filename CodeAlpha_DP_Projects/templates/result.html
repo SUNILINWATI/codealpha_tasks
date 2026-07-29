@@ -1,0 +1,185 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8">
+
+            <div class="card shadow-lg border-0">
+
+                <div class="card-header bg-danger text-white text-center">
+
+                    <h2>❤️ AI Prediction Result</h2>
+
+                </div>
+
+                <div class="card-body">
+
+                    {% if result.prediction == 1 %}
+
+                    <div class="alert alert-danger">
+
+                        <h3 class="text-center">
+
+                            Heart Disease Detected
+
+                        </h3>
+
+                    </div>
+
+                    {% else %}
+
+                    <div class="alert alert-success">
+
+                        <h3 class="text-center">
+
+                            Healthy Heart
+
+                        </h3>
+
+                    </div>
+
+                    {% endif %}
+
+                    <hr>
+
+                    <table class="table table-bordered">
+
+                        <tr>
+
+                            <th>Prediction</th>
+
+                            <td>
+
+                                {% if result.prediction==1 %}
+
+                                Positive
+
+                                {% else %}
+
+                                Negative
+
+                                {% endif %}
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <th>Probability</th>
+
+                            <td>
+
+                                {{result.probability}} %
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <th>Risk Level</th>
+
+                            <td>
+
+                                {{result.risk}}
+
+                            </td>
+
+                        </tr>
+
+                    </table>
+
+                    <hr>
+
+                    {% if result.risk=="HIGH" %}
+
+                    <div class="alert alert-danger">
+
+                        <h4>Recommendation</h4>
+
+                        <ul>
+
+                            <li>Consult a Cardiologist Immediately</li>
+
+                            <li>Reduce Cholesterol Intake</li>
+
+                            <li>Exercise Daily</li>
+
+                            <li>Monitor Blood Pressure</li>
+
+                            <li>Avoid Smoking & Alcohol</li>
+
+                        </ul>
+
+                    </div>
+
+                    {% elif result.risk=="MEDIUM" %}
+
+                    <div class="alert alert-warning">
+
+                        <h4>Recommendation</h4>
+
+                        <ul>
+
+                            <li>Maintain Healthy Diet</li>
+
+                            <li>Regular Health Checkups</li>
+
+                            <li>30 Minutes Exercise Daily</li>
+
+                        </ul>
+
+                    </div>
+
+                    {% else %}
+
+                    <div class="alert alert-success">
+
+                        <h4>Recommendation</h4>
+
+                        <ul>
+
+                            <li>Maintain Healthy Lifestyle</li>
+
+                            <li>Regular Exercise</li>
+
+                            <li>Eat Balanced Diet</li>
+
+                        </ul>
+
+                    </div>
+
+                    {% endif %}
+
+                    <div class="text-center mt-4">
+
+                        <a href="/heart-prediction" class="btn btn-primary">
+
+                            Predict Again
+
+                        </a>
+
+                        <a href="/dashboard" class="btn btn-success">
+
+                            Dashboard
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

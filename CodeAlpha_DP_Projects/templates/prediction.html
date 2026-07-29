@@ -1,0 +1,189 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+<div class="card shadow p-5">
+
+<h2 class="text-center mb-4">
+
+❤️ Heart Disease Prediction
+
+</h2>
+
+<form action="/predict" method="POST">
+
+<div class="row">
+
+<div class="col-md-4 mb-3">
+<label>Age</label>
+<input type="number" class="form-control" name="age" required>
+</div>
+
+<div class="col-md-4 mb-3">
+<label>Gender</label>
+<select class="form-control" name="sex">
+<option>Male</option>
+<option>Female</option>
+</select>
+</div>
+
+<div class="col-md-4 mb-3">
+<label>Systolic BP</label>
+<input type="number" class="form-control" name="resting_bp_systolic">
+</div>
+
+<div class="col-md-4 mb-3">
+<label>Diastolic BP</label>
+<input type="number" class="form-control" name="resting_bp_diastolic">
+</div>
+
+<div class="col-md-4 mb-3">
+<label>Total Cholesterol</label>
+<input type="number" class="form-control" name="cholesterol_total">
+</div>
+
+<div class="col-md-4 mb-3">
+<label>HDL</label>
+<input type="number" class="form-control" name="hdl">
+</div>
+
+<div class="col-md-4 mb-3">
+<label>LDL</label>
+<input type="number" class="form-control" name="ldl">
+</div>
+
+<div class="col-md-4 mb-3">
+<label>Triglycerides</label>
+<input type="number" class="form-control" name="triglycerides">
+</div>
+
+<div class="col-md-4 mb-3">
+<label>Blood Sugar</label>
+<input type="number" step="0.1" class="form-control" name="fasting_blood_sugar">
+</div>
+
+<div class="col-md-4 mb-3">
+<label>HbA1c</label>
+<input type="number" step="0.1" class="form-control" name="hba1c">
+</div>
+
+<div class="col-md-4 mb-3">
+<label>BMI</label>
+<input type="number" step="0.1" class="form-control" name="bmi">
+</div>
+
+<div class="col-md-4 mb-3">
+<label>Heart Rate</label>
+<input type="number" class="form-control" name="resting_heart_rate">
+</div>
+
+<div class="col-md-4 mb-3">
+<label>Maximum Heart Rate</label>
+<input type="number" class="form-control" name="max_heart_rate_achieved">
+</div>
+
+<div class="col-md-4 mb-3">
+<label>Chest Pain</label>
+<select class="form-control" name="chest_pain_type">
+
+<option>Typical Angina</option>
+
+<option>Atypical Angina</option>
+
+<option>Non-anginal Pain</option>
+
+<option>Asymptomatic</option>
+
+</select>
+
+</div>
+
+<div class="col-md-4 mb-3">
+<label>Exercise Angina</label>
+<select class="form-control" name="exercise_induced_angina">
+<option>Yes</option>
+<option>No</option>
+</select>
+</div>
+
+<div class="col-md-4 mb-3">
+<label>ST Depression</label>
+<input type="number" step="0.1" class="form-control" name="st_depression">
+</div>
+
+<div class="col-md-4 mb-3">
+<label>Family History</label>
+<select class="form-control" name="family_history">
+<option>Yes</option>
+<option>No</option>
+</select>
+</div>
+
+<div class="col-md-4 mb-3">
+<label>Smoker</label>
+<select class="form-control" name="smoker_status">
+<option>Current</option>
+<option>Former</option>
+<option>Never</option>
+</select>
+</div>
+
+<div class="col-md-4 mb-3">
+<label>Alcohol Units / Week</label>
+<input type="number" class="form-control" name="alcohol_units_per_week">
+</div>
+
+<div class="col-md-4 mb-3">
+<label>Exercise Minutes</label>
+<input type="number" class="form-control" name="exercise_minutes_per_week">
+</div>
+
+<div class="col-md-4 mb-3">
+<label>Sleep Hours</label>
+<input type="number" step="0.1" class="form-control" name="sleep_hours">
+</div>
+
+<div class="col-md-4 mb-3">
+<label>Stress Score</label>
+<input type="number" class="form-control" name="stress_score">
+</div>
+
+<div class="col-md-4 mb-3">
+<label>Wearable Device</label>
+<select class="form-control" name="wearable_owner">
+<option>Yes</option>
+<option>No</option>
+</select>
+</div>
+
+<div class="col-md-4 mb-3">
+<label>Daily Steps</label>
+<input type="number" class="form-control" name="daily_steps">
+</div>
+
+<div class="col-md-4 mb-3">
+<label>Diet Quality</label>
+<input type="number" class="form-control" name="diet_quality_score">
+</div>
+
+</div>
+
+<div class="text-center mt-4">
+
+<button class="btn btn-danger btn-lg">
+
+Predict Disease
+
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+{% endblock %}

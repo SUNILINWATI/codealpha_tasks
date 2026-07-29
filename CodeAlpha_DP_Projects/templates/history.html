@@ -1,0 +1,127 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="container mt-5">
+  <div class="card shadow">
+    <div class="card-header bg-primary text-white">
+      <h3>📋 Prediction History</h3>
+    </div>
+
+    <div class="card-body">
+      <div class="mb-3">
+        <a href="/history" class="btn btn-dark btn-sm">All</a>
+
+        <a href="/history?disease=Heart Disease" class="btn btn-danger btn-sm">
+          ❤️ Heart
+        </a>
+
+        <a href="/history?disease=Diabetes" class="btn btn-primary btn-sm">
+          🩸 Diabetes
+        </a>
+
+        <a href="/history?disease=Breast Cancer" class="btn btn-info btn-sm">
+          🎗 Breast Cancer
+        </a>
+      </div>
+
+      <table class="table table-bordered table-hover text-center">
+        <thead style="background-color: #212529; color: white">
+          <tr>
+            <th>Sr. No.</th>
+
+            <th>Patient</th>
+
+            <th>Disease</th>
+
+            <th>Prediction</th>
+
+            <th>Probability</th>
+
+            <th>Risk</th>
+
+            <th>Date</th>
+
+            <th>PDF</th>
+
+            <th>Delete</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {% for row in history %}
+
+          <tr>
+            <td>{{ loop.index }}</td>
+
+            <td>{{ row.patient_name }}</td>
+
+            <td>{{ row.disease }}</td>
+
+            <td>
+              {% if row.disease == "Heart Disease" %} {% if row.prediction == 1
+              %}
+              <span class="badge bg-danger">Heart Disease Detected</span>
+              {% else %}
+              <span class="badge bg-success">Healthy</span>
+              {% endif %} {% elif row.disease == "Diabetes" %} {% if
+              row.prediction == 1 %}
+              <span class="badge bg-danger">Diabetes Detected</span>
+              {% else %}
+              <span class="badge bg-success">Healthy</span>
+              {% endif %} {% elif row.disease == "Breast Cancer" %} {% if
+              row.prediction == 1 %}
+              <span class="badge bg-danger">Malignant</span>
+              {% else %}
+              <span class="badge bg-success">Benign</span>
+              {% endif %} {% endif %}
+            </td>
+
+            <td>{{ row.probability }} %</td>
+
+            <td>
+              {% if row.risk_level == "HIGH" %}
+
+              <span class="badge bg-danger"> HIGH </span>
+
+              {% elif row.risk_level == "MEDIUM" %}
+
+              <span class="badge bg-warning text-dark"> MEDIUM </span>
+
+              {% else %}
+
+              <span class="badge bg-success"> LOW </span>
+
+              {% endif %}
+            </td>
+
+            <td>{{ row.created_at }}</td>
+
+            <td>
+              <a
+                href="{{ url_for('report_bp.download_report',
+                                                prediction_id=row.id) }}"
+                class="btn btn-success btn-sm"
+              >
+                📄 Download
+              </a>
+            </td>
+
+            <td>
+              <a
+                href="{{ url_for('history_bp.delete_prediction',
+                                                id=row.id) }}"
+                class="btn btn-danger btn-sm"
+                onclick="return confirm('Delete this prediction?');"
+              >
+                🗑 Delete
+              </a>
+            </td>
+          </tr>
+
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

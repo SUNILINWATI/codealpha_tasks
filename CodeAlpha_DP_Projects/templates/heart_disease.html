@@ -1,0 +1,165 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="container mt-5">
+  <div class="card shadow-lg">
+    <div class="card-header bg-danger text-white">
+      <h2>❤️ Heart Disease Prediction</h2>
+    </div>
+
+    <div class="card-body">
+      <form action="/heart_predict" method="POST">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Patient Name</label>
+            <input
+              type="text"
+              class="form-control"
+              name="patient_name"
+              placeholder="Enter Patient Name"
+              required
+            />
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Patient Age</label>
+            <input
+              type="number"
+              class="form-control"
+              name="patient_age"
+              min="1"
+              max="120"
+              required
+            />
+          </div>
+          <div class="col-md-3 mb-3">
+            <label>Gender</label>
+            <select name="sex" class="form-control">
+              <option>Male</option>
+              <option>Female</option>
+            </select>
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label>Systolic BP</label>
+            <input type="number" name="systolic_bp" class="form-control" />
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label>Diastolic BP</label>
+            <input type="number" name="diastolic_bp" class="form-control" />
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label>Resting Heart Rate</label>
+            <input
+              type="number"
+              name="resting_heart_rate"
+              class="form-control"
+            />
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label>Total Cholesterol</label>
+            <input
+              type="number"
+              name="cholesterol_total"
+              class="form-control"
+            />
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label>Blood Sugar</label>
+            <input
+              type="number"
+              step="0.1"
+              name="fasting_blood_sugar"
+              class="form-control"
+            />
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label>BMI</label>
+            <input type="number" step="0.1" name="bmi" class="form-control" />
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label>Chest Pain</label>
+            <select name="chest_pain_type" class="form-control">
+              <option>Typical Angina</option>
+              <option>Atypical Angina</option>
+              <option>Non-anginal Pain</option>
+              <option>Asymptomatic</option>
+            </select>
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label>Exercise Angina</label>
+            <select name="exercise_induced_angina" class="form-control">
+              <option>Yes</option>
+              <option>No</option>
+            </select>
+          </div>
+
+          <div class="col-md-4 mb-3">
+            <label>ST Depression</label>
+            <input
+              type="number"
+              step="0.1"
+              name="st_depression"
+              class="form-control"
+            />
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label>Family History</label>
+            <select name="family_history" class="form-control">
+              <option>Yes</option>
+              <option>No</option>
+            </select>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label>Smoker</label>
+            <select name="smoker_status" class="form-control">
+              <option>Current</option>
+              <option>Former</option>
+              <option>Never</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Hidden Inputs Required By Model -->
+
+        <input type="hidden" name="hdl" value="55" />
+
+        <input type="hidden" name="ldl" value="110" />
+
+        <input type="hidden" name="triglycerides" value="140" />
+
+        <input type="hidden" name="hba1c" value="5.4" />
+
+        <input type="hidden" name="max_heart_rate_achieved" value="170" />
+
+        <input type="hidden" name="alcohol_units_per_week" value="2" />
+
+        <input type="hidden" name="exercise_minutes_per_week" value="150" />
+
+        <input type="hidden" name="sleep_hours" value="7" />
+
+        <input type="hidden" name="stress_score" value="3" />
+
+        <input type="hidden" name="wearable_owner" value="No" />
+
+        <input type="hidden" name="daily_steps" value="8000" />
+
+        <input type="hidden" name="diet_quality_score" value="8" />
+
+        <div class="text-center mt-4">
+          <button class="btn btn-danger btn-lg px-5">❤️ Predict</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

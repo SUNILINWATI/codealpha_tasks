@@ -1,0 +1,233 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="card shadow-lg border-0">
+        <div class="card-header bg-info text-white text-center">
+          <h2>🎗 Breast Cancer Prediction Result</h2>
+        </div>
+
+        <div class="card-body">
+          {% if result.prediction == 1 %}
+
+          <div class="alert alert-danger text-center shadow-sm">
+            <h2 class="fw-bold">⚠ Malignant (Cancer Detected)</h2>
+            <p class="mb-0 fs-4">
+              Please consult an Oncologist for further medical evaluation.
+            </p>
+          </div>
+
+          {% else %}
+
+          <div class="alert alert-success text-center shadow-sm">
+            <h2 class="fw-bold">✅ Benign (No Cancer)</h2>
+            <p class="mb-0 fs-4">
+              No significant signs of breast cancer were detected.
+            </p>
+          </div>
+
+          {% endif %}
+
+          <div class="card mt-4 shadow-sm">
+            <div class="card-header bg-dark text-white">
+              <h3 class="mb-0">👤 Patient Information</h3>
+            </div>
+
+            <div class="card-body p-3">
+              <table class="table table-bordered align-middle mb-0">
+                <tr>
+                  <th width="40%">Patient Name</th>
+                  <td>{{ patient_name }}</td>
+                </tr>
+
+                <tr>
+                  <th>Prediction Status</th>
+                  <td>{{ result.status }}</td>
+                </tr>
+
+                <tr>
+                  <th>Model Confidence</th>
+                  <td>{{ result.probability }} %</td>
+                </tr>
+
+                <tr>
+                  <th>Risk Level</th>
+
+                  <td>
+                    {% if result.risk == "HIGH" %}
+
+                    <span class="badge bg-danger fs-6 px-3 py-2"> HIGH </span>
+
+                    {% elif result.risk == "MEDIUM" %}
+
+                    <span class="badge bg-warning text-dark fs-6 px-3 py-2">
+                      MEDIUM
+                    </span>
+
+                    {% else %}
+
+                    <span class="badge bg-success fs-6 px-3 py-2"> LOW </span>
+
+                    {% endif %}
+                  </td>
+                </tr>
+
+                <tr>
+                  <th>Prediction Date</th>
+                  <td>{{ date }}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <!-- AI Confidence Meter -->
+
+          <div class="mt-5">
+            <h2 class="fw-bold mb-3">📊 AI Confidence Meter</h2>
+
+            <div class="progress" style="height: 40px">
+              {% if result.risk == "HIGH" %}
+
+              <div
+                class="progress-bar progress-bar-striped progress-bar-animated bg-danger"
+                style="width: {{ result.probability }}%;"
+              >
+                {{ result.probability }} %
+              </div>
+
+              {% elif result.risk == "MEDIUM" %}
+
+              <div
+                class="progress-bar progress-bar-striped progress-bar-animated bg-warning text-dark"
+                style="width: {{ result.probability }}%;"
+              >
+                {{ result.probability }} %
+              </div>
+
+              {% else %}
+
+              <div
+                class="progress-bar progress-bar-striped progress-bar-animated bg-success"
+                style="width: {{ result.probability }}%;"
+              >
+                {{ result.probability }} %
+              </div>
+
+              {% endif %}
+            </div>
+          </div>
+
+          <!-- AI Interpretation -->
+
+          <div class="card mt-5 border-info shadow-sm">
+            <div class="card-header bg-info text-dark">
+              <h3 class="mb-0">🤖 AI Interpretation</h3>
+            </div>
+
+            <div class="card-body fs-5">
+              {% if result.prediction == 1 %}
+
+              <p class="mb-0">
+                The AI model predicts that the patient has
+                <strong>Malignant Breast Cancer</strong>
+                with a confidence of
+                <strong>{{ result.probability }}%</strong>.
+              </p>
+
+              {% else %}
+
+              <p class="mb-0">
+                The AI model predicts that the patient has
+                <strong>Benign (No Cancer)</strong>
+                with a confidence of
+                <strong>{{ result.probability }}%</strong>.
+              </p>
+
+              {% endif %}
+            </div>
+          </div>
+          <!-- Recommendations -->
+
+          <div class="card mt-5 shadow-sm">
+            <div class="card-header bg-warning">
+              <h3 class="mb-0">💡 Recommendations</h3>
+            </div>
+
+            <div class="card-body fs-5">
+              {% if result.risk == "HIGH" %}
+
+              <ul class="mb-0">
+                <li>Consult an Oncologist immediately.</li>
+
+                <li>Schedule Mammography / Biopsy as soon as possible.</li>
+
+                <li>Follow the prescribed treatment plan.</li>
+
+                <li>Attend regular follow-up appointments.</li>
+
+                <li>Maintain a healthy diet and avoid smoking/alcohol.</li>
+              </ul>
+
+              {% elif result.risk == "MEDIUM" %}
+
+              <ul class="mb-0">
+                <li>Consult a Breast Specialist.</li>
+
+                <li>Repeat diagnostic tests if advised.</li>
+
+                <li>Perform regular self-breast examinations.</li>
+
+                <li>Maintain a healthy lifestyle.</li>
+
+                <li>Schedule periodic clinical checkups.</li>
+              </ul>
+
+              {% else %}
+
+              <ul class="mb-0">
+                <li>No evidence of breast cancer detected.</li>
+
+                <li>Continue annual breast screening.</li>
+
+                <li>Exercise regularly.</li>
+
+                <li>Maintain a healthy lifestyle.</li>
+
+                <li>Perform monthly self-breast examinations.</li>
+              </ul>
+
+              {% endif %}
+            </div>
+          </div>
+
+          <!-- Buttons -->
+
+          <div class="text-center mt-5">
+            <a
+              href="{{ url_for('breast_bp.breast') }}"
+              class="btn btn-info btn-lg px-4"
+            >
+              🔄 Predict Again
+            </a>
+
+            <a
+              href="{{ url_for('dashboard_bp.dashboard') }}"
+              class="btn btn-secondary btn-lg px-4"
+            >
+              🏠 Dashboard
+            </a>
+
+            <a
+              href="{{ url_for('report_bp.download_report', prediction_id=prediction_id) }}"
+              class="btn btn-success btn-lg px-4"
+            >
+              📄 Download Report
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

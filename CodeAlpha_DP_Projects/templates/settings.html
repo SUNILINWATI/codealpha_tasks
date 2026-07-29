@@ -1,0 +1,135 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="container mt-5">
+  <div class="card shadow-lg border-0">
+    <div class="card-header bg-dark text-white">
+      <h2>⚙ Settings</h2>
+    </div>
+
+    <div class="card-body">
+      <form method="POST">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label"> Username </label>
+
+            <input
+              type="text"
+              class="form-control"
+              value="{{ username }}"
+              readonly
+            />
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label class="form-label"> Email </label>
+
+            <input
+              type="email"
+              class="form-control"
+              value="{{ email }}"
+              readonly
+            />
+          </div>
+        </div>
+
+        <hr />
+
+        <h5>🔒 Change Password</h5>
+
+        <div class="mb-3">
+          <label> Current Password </label>
+
+          <input type="password" class="form-control" name="current_password" />
+        </div>
+
+        <div class="mb-3">
+          <label> New Password </label>
+
+          <input type="password" class="form-control" name="new_password" />
+        </div>
+
+        <div class="mb-3">
+          <label> Confirm Password </label>
+
+          <input type="password" class="form-control" name="confirm_password" />
+        </div>
+        <hr />
+
+        <h4>🌙 Appearance</h4>
+
+        <div class="form-check form-switch mt-3">
+          <input class="form-check-input" type="checkbox" id="darkMode" />
+          <label class="form-check-label"> Enable Dark Mode </label>
+        </div>
+
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" id="systemTheme" />
+          <label class="form-check-label"> Use System Theme </label>
+        </div>
+
+        <h4>About</h4>
+
+        <div class="card about-card">
+          <div class="card-body">
+            <h5>🩺 Disease Prediction AI System</h5>
+
+            <p>Version : <b>1.0.0</b></p>
+
+            <p>Developer : <b>Sunil Inwati</b></p>
+
+            <p>AI Based Disease Prediction System using Machine Learning.</p>
+
+            <p>Email : sunilinwati143@gmail.com</p>
+          </div>
+        </div>
+
+        <hr />
+
+        <h5>🔔 Preferences</h5>
+
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" checked />
+
+          <label class="form-check-label"> Email Notifications </label>
+        </div>
+
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" checked />
+
+          <label class="form-check-label"> Enable AI Recommendations </label>
+        </div>
+
+        <br />
+
+        <button class="btn btn-success" type="submit">💾 Save Settings</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Save Button -->
+
+<button class="btn btn-success mt-3">💾 Save Settings</button>
+
+<!-- JavaScript -->
+
+<script>
+  const darkMode = document.getElementById("darkMode");
+
+  if (localStorage.getItem("theme") == "dark") {
+    document.body.classList.add("dark-mode");
+    darkMode.checked = true;
+  }
+
+  darkMode.addEventListener("change", function () {
+    if (this.checked) {
+      document.body.classList.add("dark-mode");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.body.classList.remove("dark-mode");
+      localStorage.setItem("theme", "light");
+    }
+  });
+</script>
+
+{% endblock %}

@@ -1,0 +1,352 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-9">
+      <div class="card shadow-lg border-0">
+        <div class="card-header bg-primary text-white text-center py-3">
+          <h2>🩸 Diabetes Prediction Result</h2>
+        </div>
+
+        <div class="card-body p-4">
+          {% if result.prediction == 1 %}
+
+          <div class="alert alert-danger text-center">
+            <h3>⚠ Diabetes Detected</h3>
+
+            <p class="mb-0">
+              Please consult an Endocrinologist for further medical evaluation.
+            </p>
+          </div>
+
+          {% else %}
+
+          <div class="alert alert-success text-center">
+            <h3>✅ Healthy</h3>
+
+            <p class="mb-0">No significant signs of diabetes were detected.</p>
+          </div>
+
+          {% endif %}
+
+          <h4 class="mt-4 mb-3">👤 Patient Information</h4>
+
+          <table class="table table-bordered">
+            <tr>
+              <th width="35%">Patient Name</th>
+              <td>{{ patient_name }}</td>
+            </tr>
+
+            <tr>
+              <th>Prediction Status</th>
+              <td>{{ result.status }}</td>
+            </tr>
+
+            <tr>
+              <th>Model Confidence</th>
+              <td>{{ result.probability }} %</td>
+            </tr>
+
+            <tr>
+              <th>Risk Level</th>
+
+              <td>
+                {% if result.risk=="HIGH" %}
+
+                <span class="badge bg-danger fs-6"> HIGH </span>
+
+                {% elif result.risk=="MEDIUM" %}
+
+                <span class="badge bg-warning text-dark fs-6"> MEDIUM </span>
+
+                {% else %}
+
+                <span class="badge bg-success fs-6"> LOW </span>
+
+                {% endif %}
+              </td>
+            </tr>
+
+            <tr>
+              <th>Prediction Date</th>
+
+              <td>{{ date }}</td>
+            </tr>
+          </table>
+
+          <h4 class="mt-4">📊 AI Confidence Meter</h4>
+
+          <div class="progress mt-3" style="height: 30px">
+            <div
+              class="progress-bar bg-primary progress-bar-striped progress-bar-animated"
+              role="progressbar"
+              style="width: {{ result.probability }}%;"
+            >
+              {{ result.probability }} %
+            </div>
+          </div>
+
+          <div class="alert alert-info mt-4">
+            <h5>🤖 AI Interpretation</h5>
+
+            {% if result.prediction == 1 %}
+
+            <p class="mb-0">
+              The AI model predicts that the patient has
+              <strong>Diabetes</strong>
+              with a confidence of
+              <strong>{{ result.probability }}%</strong>.
+            </p>
+
+            {% else %}
+
+            <p class="mb-0">
+              The AI model predicts that the patient is
+              <strong>Healthy</strong>
+              with a confidence of
+              <strong>{{ result.probability }}%</strong>.
+            </p>
+
+            {% endif %}
+          </div>
+          <div class="card mt-4 border-info">
+            <div class="card-header bg-info text-white">
+              <h5 class="mb-0">❓ What is Model Confidence?</h5>
+            </div>
+
+            <div class="card-body">
+              <p class="mb-2">
+                <strong>Model Confidence</strong> indicates how certain the AI
+                model is about its prediction.
+              </p>
+
+              <ul class="mb-0">
+                <li>Higher confidence means the model is more certain.</li>
+
+                <li>
+                  Lower confidence means additional medical evaluation may be
+                  required.
+                </li>
+
+                <li>
+                  This value represents prediction confidence,
+                  <strong>not disease severity.</strong>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="mt-4">
+            {% if result.risk=="HIGH" %}
+
+            <div class="alert alert-danger">
+              <h4>🔴 Recommendations</h4>
+
+              <ul class="mb-0">
+                <li>Consult an Endocrinologist immediately.</li>
+
+                <li>Monitor Blood Sugar regularly.</li>
+
+                <li>Reduce sugar and refined carbohydrates.</li>
+
+                <li>Exercise at least 30 minutes daily.</li>
+
+                <li>Take medicines exactly as prescribed.</li>
+
+                <li>Schedule HbA1c tests regularly.</li>
+              </ul>
+            </div>
+
+            {% elif result.risk=="MEDIUM" %}
+
+            <div class="alert alert-warning">
+              <h4>🟡 Recommendations</h4>
+
+              <ul class="mb-0">
+                <li>Maintain a balanced diet.</li>
+
+                <li>Reduce sweets and sugary drinks.</li>
+
+                <li>Exercise regularly.</li>
+
+                <li>Check blood glucose every month.</li>
+
+                <li>Maintain a healthy body weight.</li>
+              </ul>
+            </div>
+
+            {% else %}
+
+            <div class="alert alert-success">
+              <h4>🟢 Recommendations</h4>
+
+              <ul class="mb-0">
+                <li>Continue a healthy lifestyle.</li>
+
+                <li>Maintain a balanced diet.</li>
+
+                <li>Exercise regularly.</li>
+
+                <li>Drink sufficient water.</li>
+
+                <li>Schedule annual diabetes screening.</li>
+              </ul>
+            </div>
+
+            {% endif %}
+          </div>
+
+          <div class="card mt-4">
+            <div class="card-header bg-dark text-white">
+              <h5 class="mb-0">📋 Risk Level Guide</h5>
+            </div>
+
+            <div class="card-body p-0">
+              <table class="table table-bordered mb-0 text-center">
+                <thead class="table-light">
+                  <tr>
+                    <th>Risk</th>
+
+                    <th>Description</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr>
+                    <td>
+                      <span class="badge bg-success"> LOW </span>
+                    </td>
+
+                    <td>Healthy prediction. Continue a healthy lifestyle.</td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <span class="badge bg-warning text-dark"> MEDIUM </span>
+                    </td>
+
+                    <td>
+                      Diabetes detected with moderate confidence. Medical
+                      consultation is recommended.
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>
+                      <span class="badge bg-danger"> HIGH </span>
+                    </td>
+
+                    <td>
+                      Diabetes detected with high confidence. Immediate medical
+                      consultation is recommended.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="card mt-4">
+            <div class="card-header bg-primary text-white">
+              <h5 class="mb-0">📑 AI Prediction Summary</h5>
+            </div>
+
+            <div class="card-body">
+              <table class="table table-bordered">
+                <tr>
+                  <th>Patient Name</th>
+
+                  <td>{{ patient_name }}</td>
+                </tr>
+
+                <tr>
+                  <th>Patient Age</th>
+
+                  <td>{{ patient_age }}</td>
+                </tr>
+
+                <tr>
+                  <th>Disease</th>
+
+                  <td>Diabetes</td>
+                </tr>
+
+                <tr>
+                  <th>Prediction</th>
+
+                  <td>{{ result.status }}</td>
+                </tr>
+
+                <tr>
+                  <th>Confidence</th>
+
+                  <td>{{ result.probability }}%</td>
+                </tr>
+
+                <tr>
+                  <th>Risk Level</th>
+
+                  <td>{{ result.risk }}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div class="card mt-4 border-success">
+            <div class="card-header bg-success text-white">
+              <h5 class="mb-0">📄 Download AI Medical Report</h5>
+            </div>
+
+            <div class="card-body text-center">
+              <p>
+                Download a professional PDF report containing prediction result,
+                confidence score, recommendations and patient summary.
+              </p>
+
+              <a
+                href="{{ url_for('report_bp.download_report',
+                                    prediction_id=prediction_id) }}"
+                class="btn btn-success btn-lg"
+              >
+                📄 Download Report
+              </a>
+            </div>
+          </div>
+
+          <div class="text-center mt-4">
+            <a href="/diabetes" class="btn btn-primary btn-lg">
+              🔄 Predict Again
+            </a>
+
+            <a href="/dashboard" class="btn btn-dark btn-lg ms-2">
+              🏠 Dashboard
+            </a>
+          </div>
+
+          <div class="alert alert-secondary mt-5">
+            <h5>⚠ Medical Disclaimer</h5>
+
+            <hr />
+
+            <p class="mb-2">
+              This AI prediction system is intended only for educational and
+              preliminary health screening.
+            </p>
+
+            <p class="mb-2">
+              The prediction result is generated using Machine Learning
+              algorithms.
+            </p>
+
+            <p class="mb-0">
+              This report should <strong>NOT</strong> be considered a final
+              medical diagnosis. Always consult a qualified healthcare
+              professional before making any medical decisions.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

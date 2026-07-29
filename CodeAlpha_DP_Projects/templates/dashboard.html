@@ -1,0 +1,450 @@
+{% extends "base.html" %} 
+{% block content %}
+
+<div class="sidebar">
+  <h2 class="logo">🩺 AI Disease Checker</h2>
+
+  <ul>
+    <li>
+      <a href="{{ url_for('dashboard_bp.dashboard') }}">
+        <i class="fa fa-home"></i>
+        Dashboard
+      </a>
+    </li>
+
+    <li>
+      <a href="{{ url_for('heart_bp.heart') }}">
+        <i class="fa fa-heart"></i>
+        Heart Disease
+      </a>
+    </li>
+
+    <li>
+      <a href="{{ url_for('diabetes_bp.diabetes') }}">
+        <i class="fa fa-droplet"></i>
+        Diabetes
+      </a>
+    </li>
+
+    <li>
+      <a href="{{ url_for('breast_bp.breast') }}">
+        <i class="fa fa-ribbon"></i>
+        Breast Cancer
+      </a>
+    </li>
+
+    <li>
+      <a href="{{ url_for('history_bp.history') }}">
+        <i class="fa fa-clock"></i>
+        History
+      </a>
+    </li>
+
+    <li>
+      <a href="{{ url_for('profile_bp.profile') }}">
+        <i class="fa fa-user"></i>
+        Profile
+      </a>
+    </li>
+
+    <li>
+      <a href="{{ url_for('settings_bp.settings') }}">
+        <i class="fa fa-cog"></i>
+        Settings
+      </a>
+    </li>
+
+    <li>
+      <a href="{{ url_for('auth_bp.logout') }}">
+        <i class="fa fa-sign-out-alt"></i>
+        Logout
+      </a>
+    </li>
+  </ul>
+</div>
+
+<div class="main-content">
+  <div class="card shadow border-0 mb-4">
+    <div class="card-body">
+      <h2>Welcome {{ username }} 👋</h2>
+
+      <p class="text-muted">AI Disease Prediction Dashboard</p>
+    </div>
+  </div>
+  <!-- ================= Statistics Cards ================= -->
+
+  <div class="row">
+    <div class="col-lg-3 col-md-6 mb-4">
+      <div class="dashboard-card bg-primary text-white">
+        <i class="fa fa-chart-line fa-3x mb-3"></i>
+
+        <h5>Total Predictions</h5>
+
+        <h1>{{ total }}</h1>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6 mb-4">
+      <div class="dashboard-card bg-danger text-white">
+        <i class="fa fa-heart fa-3x mb-3"></i>
+
+        <h5>Heart Disease</h5>
+
+        <h1>{{ heart }}</h1>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6 mb-4">
+      <div class="dashboard-card bg-warning text-dark">
+        <i class="fa fa-droplet fa-3x mb-3"></i>
+
+        <h5>Diabetes</h5>
+
+        <h1>{{ diabetes }}</h1>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6 mb-4">
+      <div class="dashboard-card bg-success text-white">
+        <i class="fa fa-ribbon fa-3x mb-3"></i>
+
+        <h5>Breast Cancer</h5>
+
+        <h1>{{ breast }}</h1>
+      </div>
+    </div>
+  </div>
+  <!-- ================= Charts ================= -->
+
+  <div class="row">
+    <!-- Disease Distribution -->
+
+    <div class="col-lg-6 mb-4">
+      <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+          <h5>
+            <i class="fa fa-chart-bar"></i>
+            Disease Distribution
+          </h5>
+        </div>
+
+        <div class="card-body">
+          <canvas id="diseaseChart" height="250"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Risk Distribution -->
+
+    <div class="col-lg-6 mb-4">
+      <div class="card shadow">
+        <div class="card-header bg-danger text-white">
+          <h5>
+            <i class="fa fa-chart-pie"></i>
+            Risk Distribution
+          </h5>
+        </div>
+
+        <div class="card-body">
+          <canvas id="riskChart" height="250"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ================= Prediction Trend ================= -->
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card shadow">
+        <div class="card-header bg-success text-white">
+          <h5>
+            <i class="fa fa-chart-line"></i>
+
+            Last 7 Days Prediction Trend
+          </h5>
+        </div>
+
+        <div class="card-body">
+          <canvas id="dayChart" height="100"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ================= Recent Predictions ================= -->
+
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+          <h5>
+            <i class="fa fa-clock"></i>
+
+            Recent Predictions
+          </h5>
+        </div>
+
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-hover table-bordered align-middle">
+              <thead class="table-dark">
+                <tr>
+                  <th>Patient</th>
+
+                  <th>Age</th>
+
+                  <th>Disease</th>
+
+                  <th>Prediction</th>
+
+                  <th>Probability</th>
+
+                  <th>Risk</th>
+
+                  <th>Date</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {% for row in history %}
+
+                <tr>
+                  <td>{{ row.patient_name }}</td>
+
+                  <td>{{ row.patient_age }}</td>
+
+                  <td>{{ row.disease }}</td>
+
+                  <td>
+                    {% if row.disease=="Heart Disease" %} {% if
+                    row.prediction==1 %}
+
+                    <span class="badge bg-danger"> Heart Disease </span>
+
+                    {% else %}
+
+                    <span class="badge bg-success"> Healthy </span>
+
+                    {% endif %} {% elif row.disease=="Diabetes" %} {% if
+                    row.prediction==1 %}
+
+                    <span class="badge bg-danger"> Diabetes </span>
+
+                    {% else %}
+
+                    <span class="badge bg-success"> Healthy </span>
+
+                    {% endif %} {% elif row.disease=="Breast Cancer" %} {% if
+                    row.prediction==1 %}
+
+                    <span class="badge bg-danger"> Malignant </span>
+
+                    {% else %}
+
+                    <span class="badge bg-success"> Benign </span>
+
+                    {% endif %} {% endif %}
+                  </td>
+
+                  <td>
+                    <span class="fw-bold"> {{ row.probability }}% </span>
+                  </td>
+
+                  <td>
+                    {% if row.risk_level=="HIGH" %}
+
+                    <span class="badge bg-danger"> HIGH </span>
+
+                    {% elif row.risk_level=="MEDIUM" %}
+
+                    <span class="badge bg-warning text-dark"> MEDIUM </span>
+
+                    {% else %}
+
+                    <span class="badge bg-success"> LOW </span>
+
+                    {% endif %}
+                  </td>
+
+                  <td>{{ row.created_at.strftime("%d-%m-%Y") }}</td>
+                </tr>
+
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+
+    window.onload = function () {
+
+        // ================= Disease Distribution =================
+
+        new Chart(document.getElementById("diseaseChart"),{
+
+            type:"bar",
+
+            data:{
+
+                labels: {{ disease_labels|tojson }},
+
+                datasets:[{
+
+                    label:"Predictions",
+
+                    data: {{ disease_values|tojson }},
+
+                    backgroundColor:[
+                        "#dc3545",
+                        "#0d6efd",
+                        "#198754"
+                    ],
+
+                    borderRadius:8
+
+                }]
+
+            },
+
+            options:{
+
+                responsive:true,
+
+                maintainAspectRatio:false,
+
+                plugins:{
+
+                    legend:{
+                        display:false
+                    }
+
+                }
+
+            }
+
+        });
+
+        // ================= Risk Distribution =================
+
+        new Chart(document.getElementById("riskChart"),{
+
+            type:"doughnut",
+
+            data:{
+
+                labels: {{ risk_labels|tojson }},
+
+                datasets:[{
+
+                    data: {{ risk_values|tojson }},
+
+                    backgroundColor:[
+
+                        "#198754",
+
+                        "#ffc107",
+
+                        "#dc3545"
+
+                    ]
+
+                }]
+
+            },
+
+            options:{
+
+                responsive:true,
+
+                maintainAspectRatio:false,
+
+                plugins:{
+
+                    legend:{
+                        position:"bottom"
+                    }
+
+                }
+
+            }
+
+        });
+
+        // ================= Last 7 Days =================
+
+        new Chart(document.getElementById("dayChart"),{
+
+            type:"line",
+
+            data:{
+
+                labels: {{ day_labels|tojson }},
+
+                datasets:[{
+
+                    label:"Predictions",
+
+                    data: {{ day_values|tojson }},
+
+                    borderColor:"#0d6efd",
+
+                    backgroundColor:"rgba(13,110,253,.15)",
+
+                    fill:true,
+
+                    tension:.4,
+
+                    pointRadius:5,
+
+                    pointBackgroundColor:"#0d6efd"
+
+                }]
+
+            },
+
+            options:{
+
+                responsive:true,
+
+                maintainAspectRatio:false,
+
+                scales:{
+
+                    y:{
+
+                        beginAtZero:true
+
+                    }
+
+                }
+
+            }
+
+        });
+
+    }
+  </script>
+</div>
+<footer class="mt-5 bg-dark text-white py-4">
+
+    <div class="container text-center">
+
+        <h5>🩺 Disease Prediction AI System</h5>
+
+        <p class="mb-1">
+            Heart Disease | Diabetes | Breast Cancer Prediction
+        </p>
+
+        <p class="mb-1">
+            Developed by <strong>Sunil Inwati</strong>
+        </p>
+
+        <small>© 2026 All Rights Reserved</small>
+
+    </div>
+
+</footer>
+
+{% endblock %}
