@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}Analytics{% endblock %}
+
+{% block content %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<div class="row">
+
+    <div class="col-md-6">
+
+        <div class="card shadow">
+
+            <div class="card-header bg-primary text-white">
+                Loan Status
+            </div>
+
+            <div class="card-body">
+
+                <canvas id="statusChart"></canvas>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-6">
+
+        <div class="card shadow">
+
+            <div class="card-header bg-success text-white">
+                Risk Distribution
+            </div>
+
+            <div class="card-body">
+
+                <canvas id="riskChart"></canvas>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+new Chart(document.getElementById("statusChart"),{
+
+    type:"pie",
+
+    data:{
+
+        labels:{{ status_labels|tojson }},
+
+        datasets:[{
+
+            data:{{ status_values|tojson }}
+
+        }]
+
+    }
+
+});
+
+new Chart(document.getElementById("riskChart"),{
+
+    type:"bar",
+
+    data:{
+
+        labels:{{ risk_labels|tojson }},
+
+        datasets:[{
+
+            label:"Risk",
+
+            data:{{ risk_values|tojson }}
+
+        }]
+
+    }
+
+});
+
+</script>
+
+{% endblock %}

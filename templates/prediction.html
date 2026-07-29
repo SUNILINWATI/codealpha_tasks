@@ -1,0 +1,298 @@
+{% extends "base.html" %} {% block title %}Prediction{% endblock %} {% block
+content %}
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-7">
+      <div class="chart-card">
+        <h3>Credit Prediction</h3>
+
+        <hr />
+
+        <form method="POST">
+          <div class="row">
+            <div class="col-md-12 mb-3">
+              <label class="form-label">Full Name</label>
+
+              <input
+                type="text"
+                name="fullname"
+                class="form-control"
+                placeholder="Enter Full Name"
+                required
+              />
+            </div>
+          </div>
+          <div class="row">
+            <!-- Age -->
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Age</label>
+              <input
+                type="number"
+                class="form-control"
+                name="person_age"
+                required
+              />
+            </div>
+
+            <!-- Gender -->
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Gender</label>
+              <select class="form-select" name="person_gender" required>
+                <option value="">Select</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </div>
+
+            <!-- Education -->
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Education</label>
+
+              <select class="form-select" name="person_education" required>
+                <option value="">Select</option>
+
+                <option value="High School">High School</option>
+
+                <option value="Associate">Associate</option>
+
+                <option value="Bachelor">Bachelor</option>
+
+                <option value="Master">Master</option>
+
+                <option value="Doctorate">Doctorate</option>
+              </select>
+            </div>
+
+            <!-- Income -->
+            <div class="col-md-6 mb-3">
+              <label class="form-label"> Annual Income </label>
+
+              <input
+                type="number"
+                class="form-control"
+                name="person_income"
+                required
+              />
+            </div>
+
+            <!-- Employment Experience -->
+            <div class="col-md-6 mb-3">
+              <label class="form-label"> Employment Experience (Years) </label>
+
+              <input
+                type="number"
+                class="form-control"
+                name="person_emp_exp"
+                required
+              />
+            </div>
+
+            <!-- Home Ownership -->
+            <div class="col-md-6 mb-3">
+              <label class="form-label"> Home Ownership </label>
+
+              <select class="form-select" name="person_home_ownership" required>
+                <option value="RENT">Rent</option>
+                <option value="OWN">Own</option>
+                <option value="MORTGAGE">Mortgage</option>
+                <option value="OTHER">Other</option>
+              </select>
+            </div>
+
+            <!-- Loan Amount -->
+            <div class="col-md-6 mb-3">
+              <label class="form-label"> Loan Amount </label>
+
+              <input
+                type="number"
+                class="form-control"
+                name="loan_amnt"
+                required
+              />
+            </div>
+
+            <!-- Loan Intent -->
+            <div class="col-md-6 mb-3">
+              <label class="form-label"> Loan Purpose </label>
+
+              <select class="form-select" name="loan_intent" required>
+                <option value="PERSONAL">Personal</option>
+                <option value="EDUCATION">Education</option>
+                <option value="MEDICAL">Medical</option>
+                <option value="VENTURE">Business</option>
+                <option value="HOMEIMPROVEMENT">Home Improvement</option>
+                <option value="DEBTCONSOLIDATION">Debt Consolidation</option>
+              </select>
+            </div>
+
+            <!-- Interest Rate -->
+            <div class="col-md-6 mb-3">
+              <label class="form-label"> Interest Rate </label>
+
+              <input
+                type="number"
+                step="0.01"
+                class="form-control"
+                name="loan_int_rate"
+                required
+              />
+            </div>
+
+            <!-- Loan Percent Income -->
+            <div class="col-md-6 mb-3">
+              <label class="form-label"> Loan % Income </label>
+
+              <input
+                type="number"
+                step="0.01"
+                class="form-control"
+                name="loan_percent_income"
+                required
+              />
+            </div>
+
+            <!-- Credit History -->
+            <div class="col-md-6 mb-3">
+              <label class="form-label"> Credit History Length </label>
+
+              <input
+                type="number"
+                class="form-control"
+                name="cb_person_cred_hist_length"
+                required
+              />
+            </div>
+
+            <!-- Credit Score -->
+            <div class="col-md-6 mb-3">
+              <label class="form-label"> Credit Score </label>
+
+              <input
+                type="number"
+                class="form-control"
+                name="credit_score"
+                required
+              />
+            </div>
+
+            <!-- Previous Default -->
+            <div class="col-md-12 mb-3">
+              <label class="form-label"> Previous Loan Default </label>
+
+              <select
+                class="form-select"
+                name="previous_loan_defaults_on_file"
+                required
+              >
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="d-grid">
+            <button class="btn btn-primary btn-lg">
+              <i class="fa-solid fa-brain"></i>
+
+              Predict Loan Status
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="col-lg-5">
+      {% if result %}
+
+      <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-header bg-primary text-white text-center py-3">
+          <h3>
+            <i class="fa-solid fa-robot"></i>
+            AI Prediction Result
+          </h3>
+        </div>
+
+        <div class="card-body p-4">
+          <!-- Loan Status -->
+
+          <h5 class="text-center text-muted">Loan Status</h5>
+
+          {% if result.status == "Approved" %}
+
+          <div class="alert alert-success text-center">
+            <h2>✅ Approved</h2>
+          </div>
+
+          {% else %}
+
+          <div class="alert alert-danger text-center">
+            <h2>❌ Rejected</h2>
+          </div>
+
+          {% endif %}
+
+          <!-- Risk Level -->
+
+          <h5 class="mt-4 text-center">Risk Level</h5>
+
+          {% if result.risk == "Low Risk" %}
+
+          <div class="alert alert-success text-center">
+            <h3>🟢 Low Risk</h3>
+          </div>
+
+          {% elif result.risk == "Medium Risk" %}
+
+          <div class="alert alert-warning text-center">
+            <h3>🟡 Medium Risk</h3>
+          </div>
+
+          {% else %}
+
+          <div class="alert alert-danger text-center">
+            <h3>🔴 High Risk</h3>
+          </div>
+
+          {% endif %}
+
+          <!-- Confidence -->
+
+          <h5 class="mt-4">AI Confidence</h5>
+
+          <div class="progress" style="height: 30px">
+            <div
+              class="progress-bar progress-bar-striped progress-bar-animated"
+              role="progressbar"
+              style="width: {{ result.confidence }}%;"
+            >
+              {{ result.confidence }}%
+            </div>
+          </div>
+
+          <!-- Credit Score -->
+
+          <div class="mt-4 text-center">
+            <h5>AI Credit Score</h5>
+
+            <h1 class="text-warning">{{ result.credit_score }}</h1>
+          </div>
+
+          <!-- Recommendation -->
+
+          <div class="mt-4">
+            <div class="alert alert-info">
+              <strong> 🤖 AI Recommendation </strong>
+
+              <hr />
+
+              {{ result.recommendation }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {% endif %} {% endblock %}
+    </div>
+  </div>
+</div>

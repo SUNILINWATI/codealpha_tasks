@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Credit AI - Login</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+
+    <style>
+      body {
+        background: linear-gradient(135deg, #0d6efd, #6610f2);
+
+        height: 100vh;
+
+        display: flex;
+
+        justify-content: center;
+
+        align-items: center;
+
+        font-family: Poppins, sans-serif;
+      }
+
+      .login-card {
+        width: 420px;
+
+        border: none;
+
+        border-radius: 20px;
+
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+      }
+
+      .logo {
+        font-size: 65px;
+
+        color: #0d6efd;
+      }
+
+      .form-control {
+        height: 48px;
+
+        border-radius: 10px;
+      }
+
+      .btn-login {
+        height: 50px;
+
+        border-radius: 10px;
+
+        font-size: 18px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="card login-card">
+      <div class="card-body p-5">
+        <div class="text-center mb-4">
+          <i class="fa-solid fa-chart-line logo"></i>
+
+          <h2 class="fw-bold mt-3">Credit AI</h2>
+
+          <p class="text-muted">Loan Prediction System</p>
+        </div>
+
+        {% with messages=get_flashed_messages(with_categories=true) %} {% if
+        messages %} {% for category,message in messages %}
+
+        <div class="alert alert-{{category}}">{{message}}</div>
+
+        {% endfor %} {% endif %} {% endwith %}
+
+        <form method="POST">
+          <div class="mb-3">
+            <label>Email</label>
+
+            <input type="email" name="email" class="form-control" required />
+          </div>
+
+          <div class="mb-3">
+            <label>Password</label>
+
+            <input
+              type="password"
+              name="password"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="d-flex justify-content-between mb-4">
+            <a href="{{ url_for('auth.forgot_password') }}">
+              Forgot Password?
+            </a>
+
+            <a href="{{ url_for('auth.register') }}"> Create Account </a>
+          </div>
+
+          <button class="btn btn-primary w-100 btn-login">
+            <i class="fa-solid fa-right-to-bracket"></i>
+
+            Login
+          </button>
+        </form>
+
+        <hr />
+
+        <div class="text-center">
+          <small class="text-muted">
+            © 2026 Credit AI Loan Prediction System
+          </small>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

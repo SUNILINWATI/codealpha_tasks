@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+
+{% block title %}
+Settings
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid mt-4">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8">
+
+            <div class="card shadow border-0 rounded-4">
+
+                <div class="card-header bg-dark text-white">
+
+                    <h3 class="mb-0">
+
+                        <i class="fa-solid fa-gear"></i>
+
+                        Account Settings
+
+                    </h3>
+
+                </div>
+
+                <div class="card-body p-4">
+
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+
+                    {% if messages %}
+
+                    {% for category, message in messages %}
+
+                    <div class="alert alert-{{ category }} alert-dismissible fade show">
+
+                        {{ message }}
+
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="alert">
+                        </button>
+
+                    </div>
+
+                    {% endfor %}
+
+                    {% endif %}
+
+                    {% endwith %}
+
+                    <div class="row mb-4">
+
+                        <div class="col-md-6">
+
+                            <label class="fw-bold">
+
+                                Full Name
+
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                value="{{ user[0] }}"
+                                readonly>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label class="fw-bold">
+
+                                Email
+
+                            </label>
+
+                            <input
+                                type="email"
+                                class="form-control"
+                                value="{{ user[1] }}"
+                                readonly>
+
+                        </div>
+
+                    </div>
+
+                    <hr>
+
+                    <h4 class="mb-4">
+
+                        <i class="fa-solid fa-lock"></i>
+
+                        Change Password
+
+                    </h4>
+
+                    <form method="POST">
+
+                        <div class="mb-3">
+
+                            <label>
+
+                                Current Password
+
+                            </label>
+
+                            <input
+                                type="password"
+                                name="current_password"
+                                class="form-control"
+                                required>
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label>
+
+                                New Password
+
+                            </label>
+
+                            <input
+                                type="password"
+                                name="new_password"
+                                class="form-control"
+                                required>
+
+                        </div>
+
+                        <div class="mb-4">
+
+                            <label>
+
+                                Confirm Password
+
+                            </label>
+
+                            <input
+                                type="password"
+                                name="confirm_password"
+                                class="form-control"
+                                required>
+
+                        </div>
+
+                        <button
+                            class="btn btn-primary">
+
+                            <i class="fa-solid fa-floppy-disk"></i>
+
+                            Update Password
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

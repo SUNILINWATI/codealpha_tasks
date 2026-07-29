@@ -1,0 +1,212 @@
+/* ===========================
+   Google Font
+=========================== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f4f7fc;
+    overflow-x:hidden;
+}
+
+/* ===========================
+   Wrapper
+=========================== */
+
+.wrapper{
+    display:flex;
+}
+
+/* ===========================
+   Sidebar
+=========================== */
+
+#sidebar{
+    position:fixed;
+    top:0;
+    left:0;
+    width:260px;
+    height:100vh;
+    background:linear-gradient(180deg,#2563eb,#1e3a8a);
+    color:#fff;
+    overflow-y:auto;
+    z-index:1000;
+    transition:.3s;
+}
+
+.sidebar-header{
+    text-align:center;
+    padding:25px;
+    border-bottom:1px solid rgba(255,255,255,.2);
+}
+
+.sidebar-header h3{
+    font-weight:700;
+}
+
+.components{
+    display:flex;
+    flex-direction:column;
+    height:calc(100vh - 120px);
+    padding:20px 0;
+}
+
+.components li{
+    list-style:none;
+}
+
+.components li:last-child{
+    margin-top:auto;
+}
+
+.components li a{
+    display:block;
+    padding:15px 25px;
+    color:#fff;
+    text-decoration:none;
+    transition:.3s;
+}
+
+.components li a i{
+    width:25px;
+}
+
+.components li a:hover,
+.components li.active a{
+    background:rgba(255,255,255,.15);
+    border-left:5px solid #fff;
+}
+
+/* ===========================
+   Content
+=========================== */
+
+#content{
+    margin-left:260px;
+    width:calc(100% - 260px);
+    min-height:100vh;
+    padding:20px;
+}
+
+/* ===========================
+   Navbar
+=========================== */
+
+.navbar{
+    position:sticky;
+    top:0;
+    z-index:999;
+    background:#fff;
+    border-radius:15px;
+    padding:15px 20px;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+.navbar input{
+    width:300px;
+}
+
+.navbar img{
+    object-fit:cover;
+}
+
+/* ===========================
+   Cards
+=========================== */
+
+.card-box{
+    border:none;
+    border-radius:20px;
+    color:#fff;
+    padding:25px;
+    transition:.3s;
+}
+
+.card-box:hover{
+    transform:translateY(-8px);
+}
+
+.blue{
+    background:linear-gradient(135deg,#2563eb,#60a5fa);
+}
+
+.green{
+    background:linear-gradient(135deg,#16a34a,#4ade80);
+}
+
+.orange{
+    background:linear-gradient(135deg,#f59e0b,#fbbf24);
+}
+
+.red{
+    background:linear-gradient(135deg,#ef4444,#f87171);
+}
+
+/* ===========================
+   Chart & Table
+=========================== */
+
+.chart-card,
+.table-card{
+    background:#fff;
+    border-radius:20px;
+    padding:20px;
+    margin-top:25px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media (max-width:992px){
+
+#sidebar{
+    margin-left:-260px;
+}
+
+#sidebar.active{
+    margin-left:0;
+}
+
+#content{
+    width:100%;
+    margin-left:0;
+}
+
+.navbar input{
+    width:180px;
+}
+
+}
+
+.dropdown-toggle::after{
+    margin-left:10px;
+}
+
+.dropdown-menu{
+    border-radius:12px;
+    min-width:220px;
+}
+
+.dropdown-item{
+    padding:12px 18px;
+    font-size:15px;
+    transition:.3s;
+}
+
+.dropdown-item:hover{
+    background:#2563EB;
+    color:#fff;
+}
+
+.dropdown-item.text-danger:hover{
+    background:#dc3545;
+    color:#fff !important;
+}

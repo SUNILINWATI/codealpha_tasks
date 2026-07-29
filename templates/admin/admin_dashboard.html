@@ -1,0 +1,81 @@
+{% extends "admin/admin_base.html" %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4">
+
+Admin Dashboard
+
+</h2>
+
+<div class="row">
+
+<div class="col-md-3">
+
+<div class="card bg-primary text-white shadow">
+
+<div class="card-body">
+
+<h1>{{ total_users }}</h1>
+
+<p>Total Users</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card bg-success text-white shadow">
+
+<div class="card-body">
+
+<h1>{{ total_predictions }}</h1>
+
+<p>Predictions</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card bg-warning shadow">
+
+<div class="card-body">
+
+<h1>{{ approved }}</h1>
+
+<p>Approved</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card bg-danger text-white shadow">
+
+<div class="card-body">
+
+<h1>{{ rejected }}</h1>
+
+<p>Rejected</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,331 @@
+/* ==========================================
+   SETTINGS PAGE
+========================================== */
+
+.settings-card{
+    border:none;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+    transition:.3s;
+    margin-bottom:25px;
+    animation:fadeIn .5s ease;
+}
+
+.settings-card:hover{
+    transform:translateY(-4px);
+}
+
+.settings-card .card-header{
+    font-size:18px;
+    font-weight:600;
+    padding:15px 20px;
+}
+
+.settings-card .card-body{
+    padding:25px;
+}
+
+/* ==========================================
+   PROFILE
+========================================== */
+
+.profile-photo{
+    width:170px;
+    height:170px;
+    border-radius:50%;
+    object-fit:cover;
+    border:6px solid #fff;
+    box-shadow:0 12px 30px rgba(0,0,0,.18);
+    display:block;
+    margin:20px auto;
+}
+
+.avatar-circle{
+    width:170px;
+    height:170px;
+    margin:20px auto;
+    border-radius:50%;
+    background:#2563EB;
+    color:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:60px;
+    font-weight:bold;
+    box-shadow:0 12px 30px rgba(0,0,0,.18);
+}
+
+.profile-avatar{
+    text-align:center;
+    padding:10px;
+}
+
+.profile-avatar h3{
+    font-size:34px;
+    font-weight:700;
+    margin-top:18px;
+}
+
+.profile-avatar p{
+    font-size:18px;
+    color:#6c757d;
+    margin-bottom:20px;
+}
+
+.upload-btn{
+    width:220px;
+    margin:15px auto;
+    display:block;
+}
+
+.profile-actions{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+    margin-top:20px;
+}
+
+.profile-actions .btn{
+    min-width:180px;
+}
+
+/* ==========================================
+   INPUT
+========================================== */
+
+.form-control,
+.form-select{
+    border-radius:12px;
+    padding:12px;
+    border:1px solid #dcdcdc;
+    transition:.3s;
+}
+
+.form-control:focus,
+.form-select:focus{
+    border-color:#2563EB;
+    box-shadow:0 0 12px rgba(37,99,235,.20);
+}
+
+/* ==========================================
+   BUTTONS
+========================================== */
+
+.btn{
+    border-radius:12px;
+    transition:.3s;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+}
+
+.save-btn{
+    padding:12px 30px;
+    font-weight:600;
+}
+
+.export-btn{
+    min-width:170px;
+    margin-right:10px;
+}
+
+/* ==========================================
+   PASSWORD
+========================================== */
+
+.input-group-text{
+    cursor:pointer;
+    background:#fff;
+}
+
+.input-group-text:hover{
+    background:#2563EB;
+    color:white;
+}
+
+/* ==========================================
+   SWITCH
+========================================== */
+
+.form-check-input{
+    width:50px;
+    height:25px;
+    cursor:pointer;
+}
+
+.form-check-input:checked{
+    background:#2563EB;
+    border:#2563EB;
+}
+
+/* ==========================================
+   RANGE
+========================================== */
+
+.form-range{
+    cursor:pointer;
+}
+
+#thresholdValue{
+    padding:8px 18px;
+    font-size:16px;
+    border-radius:20px;
+}
+
+/* ==========================================
+   ABOUT
+========================================== */
+
+.about-box{
+    text-align:center;
+}
+
+.about-box h4{
+    font-weight:700;
+}
+
+.about-box p{
+    color:#666;
+}
+
+/* ==========================================
+   DARK MODE
+========================================== */
+
+body.dark{
+    background:#111827;
+    color:white;
+}
+
+body.dark .settings-card{
+    background:#1F2937;
+    color:white;
+}
+
+body.dark .card-header{
+    border-bottom:1px solid #374151;
+}
+
+body.dark .form-control,
+body.dark .form-select{
+    background:#374151;
+    color:white;
+    border:1px solid #4B5563;
+}
+
+body.dark .form-control::placeholder{
+    color:#bbb;
+}
+
+body.dark .input-group-text{
+    background:#374151;
+    color:white;
+    border:1px solid #4B5563;
+}
+
+body.dark .text-muted{
+    color:#D1D5DB !important;
+}
+
+body.dark .about-box p{
+    color:#D1D5DB;
+}
+
+body.dark .navbar{
+    background:#1F2937 !important;
+}
+
+body.dark table,
+body.dark .table{
+    color:white;
+}
+
+/* ==========================================
+   THEME COLORS
+========================================== */
+
+.theme-blue{
+    --primary:#2563EB;
+}
+
+.theme-green{
+    --primary:#16A34A;
+}
+
+.theme-purple{
+    --primary:#7C3AED;
+}
+
+/* ==========================================
+   ICON
+========================================== */
+
+.card-header i{
+    margin-right:8px;
+}
+
+/* ==========================================
+   ANIMATION
+========================================== */
+
+@keyframes fadeIn{
+
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media(max-width:992px){
+
+    .save-btn{
+        width:100%;
+        margin-top:15px;
+    }
+
+    .export-btn{
+        width:100%;
+        margin-bottom:10px;
+    }
+
+    .profile-photo,
+    .avatar-circle{
+        width:140px;
+        height:140px;
+    }
+
+    .profile-avatar h3{
+        font-size:28px;
+    }
+
+}
+
+@media(max-width:768px){
+
+    .card-body{
+        padding:18px;
+    }
+
+    .settings-card{
+        border-radius:15px;
+    }
+
+    .profile-actions{
+        flex-direction:column;
+        align-items:center;
+    }
+
+}
